@@ -1,0 +1,65 @@
+@import url('https://fonts.googleapis.com/css2?family=Patrick+Hand&display=swap');
+
+body {
+    background: #20002c;  /* fallback for old browsers */
+    background: -webkit-linear-gradient(to right, #cbb4d4, #20002c);  /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to right, #cbb4d4, #20002c); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    font-family: 'Patrick Hand', cursive;
+}
+
+main {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    height: 100vh;
+}
+
+.question-box h2 {
+    text-align: center;
+}
+
+/* Button Container Styling */
+.buttons-container {
+    display: grid;
+    grid-template-areas:
+    'btn btn'
+    'btn btn';
+}
+
+/* General Button Styling */
+.btn {
+    font-family: 'Patrick Hand', cursive;
+    font-size: 1rem;
+    min-width: 18rem;
+    min-height: 9rem;
+    margin: 1rem;
+    border-radius: 12px;
+}
+
+.correct-answer {
+    background-color: green;
+}
+
+.wrong-answer {
+    background-color: red;
+}
+
+/* Start/Reset Button Styling */
+.start-btn, .next-btn {
+    min-width: 12rem;
+    min-height: 6rem;
+    font-size: 3rem;
+}
+
+.controls:first-child {
+    margin-right: 1rem;
+}
+
+.controls:last-child {
+    margin-left: 1rem;
+}
+
+.hide {
+    display: none;
+}
