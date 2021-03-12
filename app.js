@@ -1,18 +1,22 @@
 // Selectors
+const scoreDisplay = document.querySelector('#score')
 const startButton = document.querySelector("#start-btn");
 const nextButton = document.querySelector("#next-btn");
-const questionContainer = document.querySelector("#question-container");
+const questionContainer = document.querySelector('#question-container')
 const buttonContainer = document.querySelector("#buttons");
-const questionh2 = document.querySelector("#question");
+const quizQuestion = document.querySelector("#question");
 const button1 = document.querySelector("#btn1")
 const button2 = document.querySelector("#btn2")
 const button3 = document.querySelector("#btn3")
 const button4 = document.querySelector("#btn4")
+// Variables
 let score = 0;
 let currentQuestionIndex = 0;
 
 // Listeners
+// Start Quiz button
 startButton.addEventListener("click", startQuiz);
+// Answer-Option buttons
 button1.addEventListener("click", function() {
   selectAnswer(button1);
 });
@@ -29,18 +33,20 @@ button4.addEventListener("click", function() {
   selectAnswer(button4);
 });
 
+// Next question button
 nextButton.addEventListener('click', nextQuestion)
 
 // Functions
+// This function starts the quiz
 function startQuiz() {
   buttonContainer.classList.remove("hide");
   startButton.innerHTML = "Reset";
   startButton.addEventListener("click", resetQuiz);
   showQuestion(questionOne);
 }
-
+// This function displays the current question and options
 function showQuestion(question) {
-  questionh2.innerHTML = (`${question[0].question}`);
+  quizQuestion.innerHTML = (`${question[0].question}`);
 
   let answerButtons = buttonContainer.children;
   Array.from(answerButtons).forEach((e, index) => {
@@ -64,13 +70,20 @@ function showQuestion(question) {
     
   });
 }
-
+// This function proceeds 
 function nextQuestion(){
-  if (currentQuestionIndex == 1) {
+  if (currentQuestionIndex == 0) {
     showQuestion(questionTwo);
+    currentQuestionIndex++;
+  }
+  else if (currentQuestionIndex == 1) {
+    showQuestion(questionThree);
+    currentQuestionIndex++;
   }
   else if (currentQuestionIndex == 2) {
-    showQuestion(questionThree);
+    questionContainer.classList.add("hide");
+    nextButton.classList.add("hide");
+    scoreDisplay.innerText = `Your score is ${score}!`
   }
 
     button1.classList.remove("wrong-answer");
@@ -81,58 +94,50 @@ function nextQuestion(){
     button2.classList.remove("correct-answer");
     button3.classList.remove("correct-answer");
     button4.classList.remove("correct-answer");
-
-    if (currentQuestionIndex == 3) {
-      button1.classList.add("hide");
-      button2.classList.add("hide");
-      button3.classList.add("hide");
-      button4.classList.add("hide");
-      nextButton.classList.add("hide");
-      questionh2.innerText = `Your score is ${score}!`
-    }
 }
-
+// This function controls the answer and increment the score
 function selectAnswer(e) {
-  if (currentQuestionIndex == 0) {
-    button1.classList.add("wrong-answer");
-    button2.classList.add("wrong-answer");
-    button3.classList.add("correct-answer");
-    button4.classList.add("wrong-answer");
-
-    if (e == button3) {
-      score++;
-    }
-  }
-  else if (currentQuestionIndex == 1) {
-    button1.classList.add("wrong-answer");
-    button2.classList.add("correct-answer");
-    button3.classList.add("wrong-answer");
-    button4.classList.add("wrong-answer");
-
-    if (e == button2) {
-      score++;
-    }
-  }
-  else if (currentQuestionIndex == 2) {
-    button1.classList.add("wrong-answer");
-    button2.classList.add("wrong-answer");
-    button3.classList.add("correct-answer");
-    button4.classList.add("wrong-answer");
-
-    if (e == button3) {
-      score++;
-    }
-  }
+  if (!e.classList.contains("correct-answer") && !e.classList.contains("wrong-answer")) {
+    if (currentQuestionIndex == 0) {
+      button1.classList.add("wrong-answer");
+      button2.classList.add("wrong-answer");
+      button3.classList.add("correct-answer");
+      button4.classList.add("wrong-answer");
   
-  nextButton.classList.remove("hide");
+      if (e == button3) {
+        score++;
+      }
+    }
+    else if (currentQuestionIndex == 1) {
+      button1.classList.add("wrong-answer");
+      button2.classList.add("correct-answer");
+      button3.classList.add("wrong-answer");
+      button4.classList.add("wrong-answer");
+  
+      if (e == button2) {
+        score++;
+      }
+    }
+    else if (currentQuestionIndex == 2) {
+      button1.classList.add("wrong-answer");
+      button2.classList.add("wrong-answer");
+      button3.classList.add("correct-answer");
+      button4.classList.add("wrong-answer");
+  
+      if (e == button3) {
+        score++;
+      }
+    }
     
-  currentQuestionIndex++;
+    nextButton.classList.remove("hide");
+  }
 }
-
+// This function reloads the page
 function resetQuiz() {
   location.reload();
 }
 
+// Question Arrays
 const questionOne = [
   {
     question: "Inside which HTML element do we put the JavaScript?",
@@ -168,5 +173,3 @@ const questionThree = [
     ],
   },
 ];
-
-
